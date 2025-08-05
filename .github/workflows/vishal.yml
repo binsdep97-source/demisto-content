@@ -1,0 +1,14 @@
+name: PoC Inject
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  inject-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo PR title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "$TITLE"
