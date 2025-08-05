@@ -1,0 +1,17 @@
+name: inject-test
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  echo-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Echo PR title without quotes (vulnerable)
+        run: |
+          echo PR Title is:
+          eval ${{ github.event.pull_request.title }}
