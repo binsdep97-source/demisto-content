@@ -1,0 +1,15 @@
+name: inject-test
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  echo-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo PR title (command injection test)
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "$TITLE"
